@@ -1,0 +1,45 @@
+apply plugin: 'com.google.protobuf'
+apply plugin: 'java-library'
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    // For protos
+    implementation 'com.google.protobuf:protobuf-java:3.4.0'
+    implementation 'io.grpc:grpc-okhttp:1.7.0'
+    implementation 'io.grpc:grpc-stub:1.7.0'
+    implementation ('io.grpc:grpc-protobuf-lite:1.7.0') {
+        exclude module: "protobuf-lite"
+    }
+}
+
+protobuf {
+    protoc {
+        artifact = "com.google.protobuf:protoc:3.4.0"
+    }
+    plugins {
+        grpc {
+            artifact = 'io.grpc:protoc-gen-grpc-java:1.7.0'
+        }
+        lite {
+            artifact = "com.google.protobuf:protoc-gen-javalite:3.0.0"
+        }
+    }
+    generateProtoTasks {
+        all().each { task ->
+            task.builtins {
+                remove java
+            }
+            task.plugins {
+                lite {}
+                grpc {
+                    option 'lite'
+                }
+            }
+        }
+
+    }
+}
+
+sourceCompatibility = "1.7"
+targetCompatibility = "1.7"

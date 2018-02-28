@@ -1,1 +1,1 @@
-include ':user-app'
+include ':user-app', ':proto'
