@@ -1,0 +1,21 @@
+apply plugin: 'idea'
+
+dependencies {
+    // For protos
+    implementation 'com.google.protobuf:protobuf-java:3.4.0'
+    implementation 'io.grpc:grpc-okhttp:1.7.0'
+    implementation 'io.grpc:grpc-stub:1.7.0'
+    implementation ('io.grpc:grpc-protobuf-lite:1.7.0') {
+        exclude module: "protobuf-lite"
+    }
+}
+
+idea {
+    module {
+        // Hint for autocompleting generated proto classes
+        // Not using generatedSourceDirs because of
+        // https://discuss.gradle.org/t/support-for-intellij-2016/15294/8
+        sourceDirs += file("${project(':proto').projectDir}/build/generated/source/proto/main/java");
+        sourceDirs += file("${project(':proto').projectDir}/build/generated/source/proto/main/grpc");
+    }
+}

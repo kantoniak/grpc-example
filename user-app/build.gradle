@@ -1,5 +1,6 @@
-apply plugin: 'idea'
 apply plugin: 'com.android.application'
+
+apply from: file("${project(':proto').projectDir}/proto-deps.gradle")
 
 android {
     compileSdkVersion 26
@@ -17,27 +18,17 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
 }
 
 dependencies {
-    compile project(":proto")
+    implementation project(":proto")
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation 'com.android.support.constraint:constraint-layout:1.0.2'
-
-    // For protos
-    implementation 'com.google.protobuf:protobuf-java:3.4.0'
-
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.1'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
-}
-
-idea {
-    module {
-        // Hint for autocompleting generated proto classes
-        // Not using generatedSourceDirs because of
-        // https://discuss.gradle.org/t/support-for-intellij-2016/15294/8
-        sourceDirs += file("${project(':proto').projectDir}/build/generated/source/proto/main/java");
-        sourceDirs += file("${project(':proto').projectDir}/build/generated/source/proto/main/grpc");
-    }
 }

@@ -1,16 +1,10 @@
 apply plugin: 'com.google.protobuf'
 apply plugin: 'java-library'
 
+apply from: file("${project(':proto').projectDir}/proto-deps.gradle")
+
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-
-    // For protos
-    implementation 'com.google.protobuf:protobuf-java:3.4.0'
-    implementation 'io.grpc:grpc-okhttp:1.7.0'
-    implementation 'io.grpc:grpc-stub:1.7.0'
-    implementation ('io.grpc:grpc-protobuf-lite:1.7.0') {
-        exclude module: "protobuf-lite"
-    }
 }
 
 protobuf {
@@ -41,5 +35,5 @@ protobuf {
     }
 }
 
-sourceCompatibility = "1.7"
-targetCompatibility = "1.7"
+sourceCompatibility = "1.8"
+targetCompatibility = "1.8"
