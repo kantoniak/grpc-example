@@ -13,9 +13,18 @@ android {
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
+        debug {
+            // gRPC endpoint
+            buildConfigField('String', 'RPC_SERVER_HOST', RpcServerHost)
+            buildConfigField('int', 'RPC_SERVER_PORT', RpcServerPort)
+        }
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+
+            // gRPC endpoint
+            buildConfigField('String', 'RPC_SERVER_HOST', RpcServerHost)
+            buildConfigField('int', 'RPC_SERVER_PORT', RpcServerPort)
         }
     }
     compileOptions {

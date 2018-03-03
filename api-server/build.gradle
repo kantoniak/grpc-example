@@ -4,6 +4,8 @@ apply plugin: 'application'
 apply from: project(':proto').file("proto-deps.gradle")
 
 mainClassName = 'com.kantoniak.examplegrpc.server.ApiServer'
+applicationDefaultJvmArgs = ["-DRpcServerPort=${RpcServerPort}"]
+
 def unpackedDistsDir = file("${buildDir}/distributions-unpacked")
 def distName = 'api-server'
 

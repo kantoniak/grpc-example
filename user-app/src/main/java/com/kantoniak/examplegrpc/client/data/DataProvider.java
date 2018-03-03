@@ -2,6 +2,7 @@ package com.kantoniak.examplegrpc.client.data;
 
 import android.util.Log;
 
+import com.kantoniak.examplegrpc.client.BuildConfig;
 import com.kantoniak.examplegrpc.proto.EntryServiceGrpc;
 import com.kantoniak.examplegrpc.proto.GetAllRequest;
 
@@ -16,8 +17,8 @@ public class DataProvider {
 
     private static final String TAG = "DataProvider";
 
-    private static final String HOST = "localhost";
-    private static final int PORT = 8800;
+    private static final String HOST = BuildConfig.RPC_SERVER_HOST;
+    private static final int PORT = BuildConfig.RPC_SERVER_PORT;
     private static final int CALL_DEADLINE_SECS = 5;
 
     private final ManagedChannel channel;

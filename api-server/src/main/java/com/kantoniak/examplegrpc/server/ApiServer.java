@@ -12,7 +12,7 @@ import io.grpc.ServerBuilder;
 import io.grpc.stub.StreamObserver;
 
 class ApiServer {
-    private final static int PORT = 8800;
+    private final static int PORT = Integer.parseInt(System.getProperty("RpcServerPort"));
     private Server grpcServer;
 
     private void start() throws IOException {
