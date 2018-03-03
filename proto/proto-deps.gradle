@@ -2,6 +2,7 @@ apply plugin: 'idea'
 
 dependencies {
     // For protos
+    implementation "io.grpc:grpc-netty:1.7.0"
     implementation 'com.google.protobuf:protobuf-java:3.4.0'
     implementation 'io.grpc:grpc-okhttp:1.7.0'
     implementation 'io.grpc:grpc-stub:1.7.0'

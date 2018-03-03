@@ -1,10 +1,48 @@
 apply plugin: 'java'
 apply plugin: 'application'
 
-apply from: file("${project(':proto').projectDir}/proto-deps.gradle")
+apply from: project(':proto').file("proto-deps.gradle")
 
 mainClassName = 'com.kantoniak.examplegrpc.server.ApiServer'
+def unpackedDistsDir = file("${buildDir}/distributions-unpacked")
+def distName = 'api-server'
 
 dependencies {
     implementation project(":proto")
+}
+
+task unzipDist(type: Copy) {
+    dependsOn distZip
+
+    def zipFile = file("${buildDir}/distributions/${distName}.zip")
+    def outputDir = unpackedDistsDir
+
+    from zipTree(zipFile)
+    into outputDir
+}
+
+task runServer(type: Exec) {
+    dependsOn unzipDist
+
+    def system = org.gradle.internal.os.OperatingSystem.current()
+
+    // Windows-specific
+    def batchFile = file("${unpackedDistsDir}/${distName}/bin/${distName}.bat")
+    def gitBashExe = file('C:/Program Files/Git/git-bash.exe')
+
+    // Linux-specific
+    def shFile = file("${unpackedDistsDir}/${distName}/bin/${distName}")
+
+    if (system.isWindows()) {
+        if (gitBashExe.exists()) {
+            commandLine = [gitBashExe, shFile]
+        } else {
+            commandLine = ['cmd', '/C', 'start', batchFile]
+        }
+    } else {
+        commandLine = shFile
+    }
+
+    workingDir = unpackedDistsDir
+    ignoreExitValue = true
 }
