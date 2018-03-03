@@ -6,14 +6,29 @@
     android:layout_height="match_parent"
     tools:context="com.kantoniak.examplegrpc.client.MainActivity">
 
-    <TextView
-        android:id="@+id/main-text-view"
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello World!"
+        android:orientation="vertical"
+        android:gravity="center"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_margin="16dp">
+
+        <TextView
+            android:id="@+id/main-text-view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <Button
+            android:id="@+id/refresh-button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Refresh" />
+
+    </LinearLayout>
+
 
 </android.support.constraint.ConstraintLayout>

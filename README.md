@@ -8,6 +8,13 @@ A simple project to create a simple bootstrap for Android apps using gRPC and Pr
 * `api-server` serves as a gRPC endpoint
 * `user-app` is an android application
 
+## Android client
+
+To connect with running local gRPC instance you will have to forward back device localhost port to PC port:
+```bash
+adb reverse tcp:8800 tcp:8800
+```
+
 ## API server
 
 Server can be run straight from gradle, or as a part of the distribution.
