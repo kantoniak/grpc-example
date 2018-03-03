@@ -1,0 +1,10 @@
+apply plugin: 'java'
+apply plugin: 'application'
+
+apply from: file("${project(':proto').projectDir}/proto-deps.gradle")
+
+mainClassName = 'com.kantoniak.examplegrpc.server.ApiServer'
+
+dependencies {
+    implementation project(":proto")
+}

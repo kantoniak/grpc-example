@@ -15,7 +15,7 @@ idea {
         // Hint for autocompleting generated proto classes
         // Not using generatedSourceDirs because of
         // https://discuss.gradle.org/t/support-for-intellij-2016/15294/8
-        sourceDirs += file("${project(':proto').projectDir}/build/generated/source/proto/main/java");
-        sourceDirs += file("${project(':proto').projectDir}/build/generated/source/proto/main/grpc");
+        sourceDirs += file("${project(':proto').projectDir}/build/generated/source/proto/main/lite")
+        sourceDirs += file("${project(':proto').projectDir}/build/generated/source/proto/main/grpc")
     }
 }
