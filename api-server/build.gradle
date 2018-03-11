@@ -30,7 +30,7 @@ task runServer(type: Exec) {
 
     // Windows-specific
     def batchFile = file("${unpackedDistsDir}/${distName}/bin/${distName}.bat")
-    def gitBashExe = file('C:/Program Files/Git/git-bash.exe')
+    def gitBashExe = new File("C:/Program Files/Git/git-bash.exe")
 
     // Linux-specific
     def shFile = file("${unpackedDistsDir}/${distName}/bin/${distName}")
