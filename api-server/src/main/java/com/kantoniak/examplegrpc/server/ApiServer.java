@@ -6,10 +6,18 @@ import com.kantoniak.examplegrpc.proto.GetAllRequest;
 import com.kantoniak.examplegrpc.proto.GetAllResponse;
 
 import java.io.IOException;
+import java.util.Arrays;
 
+import io.grpc.Metadata;
 import io.grpc.Server;
 import io.grpc.ServerBuilder;
+import io.grpc.ServerCall;
+import io.grpc.ServerCallHandler;
+import io.grpc.ServerInterceptor;
+import io.grpc.Status;
 import io.grpc.stub.StreamObserver;
+
+import static io.grpc.Metadata.BINARY_BYTE_MARSHALLER;
 
 class ApiServer {
     private final static int PORT = Integer.parseInt(System.getProperty("RpcServerPort"));
@@ -18,6 +26,23 @@ class ApiServer {
     private void start() throws IOException {
         grpcServer = ServerBuilder.forPort(PORT)
                 .addService(new EntryServiceImpl())
+                .intercept(new ServerInterceptor() {
+                    @Override
+                    public <ReqT, RespT> ServerCall.Listener<ReqT> interceptCall(ServerCall<ReqT, RespT> call, Metadata headers, ServerCallHandler<ReqT, RespT> next) {
+                        System.out.println("ServerInterceptor: Intercepting call to " + call.getMethodDescriptor().getFullMethodName() + "...");
+
+                        String username = new String(headers.get(Metadata.Key.of("username-bin", BINARY_BYTE_MARSHALLER)));
+                        String password = new String(headers.get(Metadata.Key.of("password-bin", BINARY_BYTE_MARSHALLER)));
+                        System.out.println("Auth try: " + username + ", " + password);
+
+                        if (username.equals("user") && password.equals("pass")) {
+                            return next.startCall(call, headers);
+                        } else {
+                            call.close(Status.UNAUTHENTICATED, headers);
+                            return new ServerCall.Listener<ReqT>() {};
+                        }
+                    }
+                })
                 .build()
                 .start();
 
