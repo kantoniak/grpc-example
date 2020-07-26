@@ -2,10 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/api-server/api-server.iml" filepath="$PROJECT_DIR$/api-server/api-server.iml" />
       <module fileurl="file://$PROJECT_DIR$/grpc-example.iml" filepath="$PROJECT_DIR$/grpc-example.iml" />
-      <module fileurl="file://$PROJECT_DIR$/proto/proto.iml" filepath="$PROJECT_DIR$/proto/proto.iml" />
-      <module fileurl="file://$PROJECT_DIR$/user-app/user-app.iml" filepath="$PROJECT_DIR$/user-app/user-app.iml" />
     </modules>
   </component>
 </project>
